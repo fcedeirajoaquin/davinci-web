@@ -11,4 +11,60 @@
     background-color: #F6FAFD;
     color: #1F2937;
   }
+
+  ::selection {
+    background-color: #2C6CCB;
+    color: white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Noise texture overlay for sections */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle grid pattern */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(44, 108, 203, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 108, 203, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Diagonal line pattern for dark sections */
+.diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 30px,
+    rgba(78, 214, 241, 0.03) 30px,
+    rgba(78, 214, 241, 0.03) 31px
+  );
+}
+
+
+/* Smooth gradient border effect */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #4ED6F1, transparent);
 }

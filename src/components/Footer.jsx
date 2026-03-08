@@ -5,6 +5,7 @@ import {
   FaPhone,
   FaMapMarkerAlt,
   FaHeart,
+  FaChevronUp,
 } from 'react-icons/fa'
 
 const Footer = () => {
@@ -14,33 +15,22 @@ const Footer = () => {
     { name: 'Inicio', href: '#hero' },
     { name: 'Nosotros', href: '#about' },
     { name: 'Servicios', href: '#services' },
-    { name: 'Galería', href: '#gallery' },
+    { name: 'Galeria', href: '#gallery' },
     { name: 'Contacto', href: '#contact' },
   ]
 
   const socialLinks = [
-    {
-      icon: <FaInstagram className="text-2xl" />,
-      href: 'https://www.instagram.com/davinci_vidrieriayherreria/',
-      label: 'Instagram',
-    },
-    {
-      icon: <FaWhatsapp className="text-2xl" />,
-      href: 'https://wa.me/5491133333333',
-      label: 'WhatsApp',
-    },
+    { icon: <FaInstagram className="text-xl" />, href: 'https://www.instagram.com/davinci_vidrieriayherreria/', label: 'Instagram' },
+    { icon: <FaWhatsapp className="text-xl" />, href: 'https://wa.me/5491161549740', label: 'WhatsApp' },
   ]
 
   return (
-    <footer className="bg-deep border-t border-primary/10 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-davinci rounded-full blur-3xl" />
-      </div>
+    <footer className="bg-[#0F1F4A] relative overflow-hidden">
+      {/* Top accent line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
-        {/* Main Footer Content */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <motion.div
@@ -49,27 +39,26 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-2xl font-bold mb-4">
-                <span className="text-deep">DA VINCI</span>{' '}
-                <span className="text-primary">ABERTURAS</span>
-              </h3>
-              <p className="text-text/60 mb-4 max-w-md">
-                Creadores de espacios únicos. Especializados en vidriería y
-                herrería de aluminio con más de 10 años de experiencia en el
-                rubro.
-              </p>
-              <div className="space-y-2 text-text/60">
-                <div className="flex items-center gap-2">
-                  <FaMapMarkerAlt className="text-primary" />
-                  <span>Amenabar 1929, Módena</span>
+              <div className="flex items-center gap-3 mb-5">
+                <img src="/logo.png" alt="Da Vinci" className="h-10" />
+                <div>
+                  <span className="text-white font-bold text-lg tracking-tight block leading-tight">DA VINCI</span>
+                  <span className="text-accent/60 font-medium text-xs tracking-[0.15em] uppercase">Aberturas</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <FaPhone className="text-primary" />
-                  <a
-                    href="tel:+5491133333333"
-                    className="hover:text-primary transition-colors"
-                  >
-                    +54 11 3333-3333
+              </div>
+              <p className="text-white/40 mb-6 max-w-md leading-relaxed text-sm">
+                Creadores de espacios unicos. Especializados en vidrieria y
+                herreria de aluminio con mas de 10 anos de experiencia.
+              </p>
+              <div className="space-y-2.5 text-white/40 text-sm">
+                <div className="flex items-center gap-3">
+                  <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
+                  <span>Amenabar 1929, Modena</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaPhone className="text-accent/60 flex-shrink-0" />
+                  <a href="tel:+5491161549740" className="hover:text-accent transition-colors">
+                    011 6154-9740
                   </a>
                 </div>
               </div>
@@ -83,99 +72,74 @@ const Footer = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-deep font-bold mb-4">Enlaces Rápidos</h4>
-            <ul className="space-y-2">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5">Enlaces</h4>
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <motion.a
+                  <a
                     href={link.href}
-                    whileHover={{ x: 5 }}
-                    className="text-text/60 hover:text-primary transition-colors inline-block"
+                    className="text-white/40 hover:text-accent transition-colors text-sm inline-block"
                   >
                     {link.name}
-                  </motion.a>
+                  </a>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Social & CTA */}
+          {/* Social */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h4 className="text-deep font-bold mb-4">Síguenos</h4>
-            <div className="flex gap-4 mb-6">
+            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5">Seguinos</h4>
+            <div className="flex gap-3 mb-6">
               {socialLinks.map((social, index) => (
-                <motion.a
+                <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-gradient-davinci/10 border border-primary/30 rounded-full flex items-center justify-center text-primary hover:bg-gradient-davinci hover:text-deep transition-all duration-300"
+                  className="w-11 h-11 bg-white/[0.06] border border-white/10 rounded-xl flex items-center justify-center text-white/50 hover:bg-accent hover:text-deep hover:border-accent transition-all duration-300"
                   aria-label={social.label}
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
-            <motion.a
+            <a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block bg-gradient-davinci text-deep px-6 py-3 rounded-full font-semibold hover:bg-gradient-davinci/90 transition-all duration-300 text-sm"
+              className="inline-block bg-accent/10 text-accent border border-accent/20 px-5 py-2.5 rounded-xl font-semibold hover:bg-accent hover:text-deep transition-all duration-300 text-sm"
             >
               Solicitar Presupuesto
-            </motion.a>
+            </a>
           </motion.div>
         </div>
 
         {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="border-t border-primary/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
-        >
-          <p className="text-text/60 text-sm text-center md:text-left">
-            © {currentYear} Da Vinci Vidriería y Herrería. Todos los derechos
-            reservados.
+        <div className="border-t border-white/[0.06] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-white/30 text-sm text-center md:text-left">
+            {currentYear} Da Vinci Vidrieria y Herreria. Todos los derechos reservados.
           </p>
-          <p className="text-text/60 text-sm flex items-center gap-2">
-            Hecho con <FaHeart className="text-primary" /> en Buenos Aires
+          <p className="text-white/30 text-sm flex items-center gap-2">
+            Hecho con <FaHeart className="text-accent/60 text-xs" /> en Buenos Aires
           </p>
-        </motion.div>
-
-        {/* Back to Top Button */}
-        <motion.a
-          href="#hero"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          whileHover={{ y: -5 }}
-          transition={{ duration: 0.3 }}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-davinci rounded-full flex items-center justify-center text-deep shadow-lg hover:bg-gradient-davinci/90 transition-all duration-300 z-50"
-          aria-label="Volver arriba"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
-        </motion.a>
+        </div>
       </div>
+
+      {/* Back to Top */}
+      <motion.a
+        href="#hero"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        whileHover={{ y: -3 }}
+        className="fixed bottom-8 right-8 w-11 h-11 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center text-deep shadow-lg shadow-accent/20 hover:bg-accent transition-all duration-300 z-50"
+        aria-label="Volver arriba"
+      >
+        <FaChevronUp className="text-sm" />
+      </motion.a>
     </footer>
   )
 }

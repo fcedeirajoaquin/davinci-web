@@ -1,9 +1,8 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
+import TextReveal from './TextReveal'
 import {
   FaPhone,
-  FaEnvelope,
   FaMapMarkerAlt,
   FaInstagram,
   FaWhatsapp,
@@ -21,96 +20,41 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // WhatsApp message
     const message = `Hola! Mi nombre es ${formData.name}. ${formData.message}`
-    const whatsappUrl = `https://wa.me/5491133333333?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/5491161549740?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const contactInfo = [
-    {
-      icon: <FaPhone className="text-2xl" />,
-      title: 'Teléfono',
-      info: '+54 11 3333-3333',
-      link: 'tel:+5491133333333',
-    },
-    {
-      icon: <FaWhatsapp className="text-2xl" />,
-      title: 'WhatsApp',
-      info: 'Chatea con nosotros',
-      link: 'https://wa.me/5491133333333',
-    },
-    {
-      icon: <FaMapMarkerAlt className="text-2xl" />,
-      title: 'Ubicación',
-      info: 'Amenabar 1929, Módena',
-      link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires',
-    },
-    {
-      icon: <FaInstagram className="text-2xl" />,
-      title: 'Instagram',
-      info: '@davinci_vidrieriayherreria',
-      link: 'https://www.instagram.com/davinci_vidrieriayherreria/',
-    },
+    { icon: <FaPhone className="text-xl" />, title: 'Telefono', info: '011 6154-9740', link: 'tel:+5491161549740' },
+    { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: 'Chatea con nosotros', link: 'https://wa.me/5491161549740' },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicacion', info: 'Amenabar 1929, Modena', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
+    { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: '@davinci_vidrieriayherreria', link: 'https://www.instagram.com/davinci_vidrieriayherreria/' },
   ]
 
-  const containerVariants = {
+  const container = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   }
 
-  const itemVariants = {
+  const item = {
     hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-      },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   }
+
+  const inputClasses = "w-full px-4 py-3.5 bg-white border border-deep/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-sm"
+  const darkInputClasses = "w-full px-4 py-3.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-sm"
 
   return (
-    <section id="contact" className="py-20 bg-white relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            rotate: [0, 180, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-0 right-0 w-96 h-96 bg-gradient-davinci/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.3, 1, 1.3],
-            rotate: [0, -180, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-davinci/5 rounded-full blur-3xl"
-        />
-      </div>
+    <section id="contact" className="py-24 bg-deep relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 diagonal-lines" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[100px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -120,37 +64,40 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-deep">Contactanos</span>
+          <span className="inline-block text-accent/60 text-sm font-semibold uppercase tracking-[0.2em] mb-4">
+            Hablemos
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6">
+            <TextReveal as="span" className="text-white">Contactanos</TextReveal>
           </h2>
           <motion.div
             initial={{ width: 0 }}
-            animate={isInView ? { width: '100px' } : {}}
+            animate={isInView ? { width: 80 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="h-1 bg-gradient-davinci mx-auto mb-6"
+            className="h-0.5 bg-accent mx-auto mb-6"
           />
-          <p className="text-text/70 text-lg max-w-3xl mx-auto">
-            ¿Tenés un proyecto en mente? Escribinos y te respondemos a la brevedad
+          <p className="text-white/50 text-lg max-w-2xl mx-auto">
+            Tenes un proyecto en mente? Escribinos y te respondemos a la brevedad
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <motion.div
-            variants={containerVariants}
+            variants={container}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
           >
             <motion.div
-              variants={itemVariants}
-              className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/10"
+              variants={item}
+              className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06]"
             >
-              <h3 className="text-2xl font-bold text-deep mb-6">
+              <h3 className="text-2xl font-display text-white mb-8">
                 Solicitar Presupuesto
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <motion.div variants={itemVariants}>
-                  <label className="block text-text/70 mb-2 font-medium">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="block text-white/50 mb-2 text-sm font-medium">
                     Nombre completo
                   </label>
                   <input
@@ -159,13 +106,13 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-white/50 border border-primary/20 rounded-lg text-deep placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300"
-                    placeholder="Juan Pérez"
+                    className={darkInputClasses}
+                    placeholder="Juan Perez"
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants}>
-                  <label className="block text-text/70 mb-2 font-medium">
+                <div>
+                  <label className="block text-white/50 mb-2 text-sm font-medium">
                     Email
                   </label>
                   <input
@@ -174,27 +121,27 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-white/50 border border-primary/20 rounded-lg text-deep placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300"
+                    className={darkInputClasses}
                     placeholder="juan@email.com"
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants}>
-                  <label className="block text-text/70 mb-2 font-medium">
-                    Teléfono
+                <div>
+                  <label className="block text-white/50 mb-2 text-sm font-medium">
+                    Telefono
                   </label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 border border-primary/20 rounded-lg text-deep placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300"
+                    className={darkInputClasses}
                     placeholder="+54 11 1234-5678"
                   />
-                </motion.div>
+                </div>
 
-                <motion.div variants={itemVariants}>
-                  <label className="block text-text/70 mb-2 font-medium">
+                <div>
+                  <label className="block text-white/50 mb-2 text-sm font-medium">
                     Mensaje
                   </label>
                   <textarea
@@ -203,19 +150,18 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows="4"
-                    className="w-full px-4 py-3 bg-white/50 border border-primary/20 rounded-lg text-deep placeholder-gray-500 focus:outline-none focus:border-primary transition-all duration-300 resize-none"
+                    className={`${darkInputClasses} resize-none`}
                     placeholder="Contanos sobre tu proyecto..."
                   />
-                </motion.div>
+                </div>
 
                 <motion.button
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
                   type="submit"
-                  className="w-full bg-gradient-davinci text-deep py-4 rounded-lg font-bold text-lg hover:bg-gradient-davinci/90 transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+                  className="w-full bg-accent text-deep py-4 rounded-xl font-bold text-base hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(78,214,241,0.2)] flex items-center justify-center gap-3"
                 >
-                  <FaWhatsapp className="text-2xl" />
+                  <FaWhatsapp className="text-xl" />
                   Enviar por WhatsApp
                 </motion.button>
               </form>
@@ -224,54 +170,51 @@ const Contact = () => {
 
           {/* Contact Information */}
           <motion.div
-            variants={containerVariants}
+            variants={container}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            className="space-y-6"
+            className="space-y-4"
           >
-            {contactInfo.map((item, index) => (
+            {contactInfo.map((info, index) => (
               <motion.a
                 key={index}
-                href={item.link}
+                href={info.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                variants={itemVariants}
-                whileHover={{ x: 10, scale: 1.02 }}
-                className="flex items-center gap-6 bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/10 hover:border-primary/30 transition-all duration-300 group"
+                variants={item}
+                whileHover={{ x: 6 }}
+                className="flex items-center gap-5 bg-white/[0.04] backdrop-blur-sm rounded-2xl p-5 border border-white/[0.06] hover:border-accent/20 hover:bg-white/[0.08] transition-all duration-300 group"
               >
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                  className="flex-shrink-0 w-16 h-16 bg-gradient-davinci/10 rounded-full flex items-center justify-center text-primary group-hover:bg-gradient-davinci group-hover:text-deep transition-all duration-300"
-                >
-                  {item.icon}
-                </motion.div>
+                <div className="flex-shrink-0 w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center text-accent/70 group-hover:bg-accent group-hover:text-deep transition-all duration-300">
+                  {info.icon}
+                </div>
                 <div>
-                  <h4 className="text-deep font-bold mb-1">{item.title}</h4>
-                  <p className="text-text/60 group-hover:text-primary transition-colors">
-                    {item.info}
+                  <h4 className="text-white font-bold text-sm mb-0.5">{info.title}</h4>
+                  <p className="text-white/40 text-sm group-hover:text-accent/70 transition-colors">
+                    {info.info}
                   </p>
                 </div>
               </motion.a>
             ))}
 
-            {/* Map Placeholder */}
+            {/* Map */}
             <motion.div
-              variants={itemVariants}
-              className="bg-white/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/10 h-64 flex items-center justify-center"
+              variants={item}
+              className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] flex items-center justify-center"
+              style={{ minHeight: '200px' }}
             >
               <div className="text-center">
-                <FaMapMarkerAlt className="text-primary text-5xl mx-auto mb-4" />
-                <p className="text-text/70 font-semibold">Amenabar 1929</p>
-                <p className="text-text/60">Módena, Buenos Aires</p>
+                <FaMapMarkerAlt className="text-accent text-4xl mx-auto mb-4" />
+                <p className="text-white font-semibold">Amenabar 1929</p>
+                <p className="text-white/40 text-sm mb-4">Modena, Buenos Aires</p>
                 <motion.a
                   href="https://maps.google.com/?q=Amenabar+1929+Buenos+Aires"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  className="inline-block mt-4 text-primary hover:underline"
+                  whileHover={{ scale: 1.03 }}
+                  className="inline-block text-accent text-sm font-semibold hover:underline"
                 >
-                  Ver en Google Maps →
+                  Ver en Google Maps
                 </motion.a>
               </div>
             </motion.div>
