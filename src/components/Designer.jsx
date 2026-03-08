@@ -1,5 +1,5 @@
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { useRef, useState, useMemo } from 'react'
+import { useRef, useState, useMemo, useEffect } from 'react'
 import TextReveal from './TextReveal'
 import {
   FaWindowMaximize,
@@ -391,7 +391,7 @@ const StepType = ({ config, setConfig }) => (
           }}
           whileHover={{ scale: 1.03, y: -2 }}
           whileTap={{ scale: 0.97 }}
-          className={`relative flex flex-col items-center gap-3 p-6 rounded-2xl border transition-all duration-300 ${
+          className={`relative overflow-visible flex flex-col items-center gap-3 p-6 rounded-2xl border transition-all duration-300 ${
             isSelected
               ? 'bg-accent/15 border-accent/40 text-white shadow-[0_0_30px_rgba(78,214,241,0.1)]'
               : 'bg-white/[0.04] border-white/[0.08] text-white/50 hover:border-white/20 hover:bg-white/[0.07]'
@@ -403,7 +403,7 @@ const StepType = ({ config, setConfig }) => (
           <span className="font-semibold text-sm">{product.name}</span>
           {isSelected && (
             <motion.div layoutId="typeIndicator"
-              className="absolute -top-1 -right-1 w-5 h-5 bg-accent rounded-full flex items-center justify-center"
+              className="absolute top-2 right-2 w-5 h-5 bg-accent rounded-full flex items-center justify-center"
               initial={{ scale: 0 }} animate={{ scale: 1 }}>
               <FaCheck className="text-deep text-[8px]" />
             </motion.div>
@@ -593,12 +593,12 @@ const StepGlass = ({ config, setConfig }) => (
     {/* Location selector */}
     <div>
       <label className="block text-white/50 text-sm font-medium mb-2.5">Donde va ubicada?</label>
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
         {LOCATIONS.map((loc) => (
           <motion.button key={loc}
             onClick={() => setConfig(prev => ({ ...prev, location: loc }))}
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-300 ${
+            className={`py-2 px-1 rounded-lg border text-xs font-semibold transition-all duration-300 truncate ${
               config.location === loc
                 ? 'bg-accent/15 border-accent/40 text-accent'
                 : 'bg-white/[0.04] border-white/[0.08] text-white/35 hover:border-white/20 hover:text-white/50'
@@ -742,12 +742,32 @@ const Designer = () => {
   const [step, setStep] = useState(0)
   const [config, setConfig] = useState({ ...DEFAULT_CONFIG })
   const [cart, setCart] = useState([])
+  const previewKey = `${config.type}-${config.style}-${config.panels}-${config.color}-${config.glass}-${config.direction}-${config.mosquitero}-${config.quantity}`
+  const stepRefs = useRef([])
 
   const canGoNext = useMemo(() => {
     if (step === 0) return !!config.type
     if (step === 1) return !!config.style
     return true
   }, [step, config])
+
+  // Auto-scroll step indicator to active step (only the steps container)
+  const stepsContainerRef = useRef(null)
+  useEffect(() => {
+    const el = stepRefs.current[step]
+    const container = stepsContainerRef.current
+    if (!el || !container) return
+    const timer = setTimeout(() => {
+      const elLeft = el.offsetLeft
+      const elWidth = el.offsetWidth
+      const containerWidth = container.offsetWidth
+      container.scrollTo({
+        left: elLeft - containerWidth / 2 + elWidth / 2,
+        behavior: 'smooth',
+      })
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [step])
 
   const handleAddToCart = () => {
     setCart(prev => [...prev, { ...config }])
@@ -822,10 +842,12 @@ const Designer = () => {
 
           {/* Step Indicator */}
           <div className="flex justify-center mb-10">
-            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto pb-2">
+            <div ref={stepsContainerRef} className="flex items-center gap-1 sm:gap-2 overflow-x-auto py-5 -my-5 px-2
+              [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {STEPS.map((s, i) => (
                 <div key={s.id} className="flex items-center">
                   <motion.button
+                    ref={el => stepRefs.current[i] = el}
                     onClick={() => i <= step && setStep(i)}
                     whileHover={i <= step ? { scale: 1.05 } : {}}
                     className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 whitespace-nowrap ${
@@ -856,11 +878,53 @@ const Designer = () => {
             </motion.div>
           )}
 
+          {/* Mobile Compact Preview — always visible, small */}
+          <div className="lg:hidden mb-5">
+            <div className="bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/[0.06] p-3">
+              <div className="flex items-center gap-4">
+                {/* Mini SVG */}
+                <div className="w-28 h-28 flex-shrink-0">
+                  <AnimatePresence mode="wait">
+                    <motion.div key={`m-${previewKey}`}
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+                      className="w-full h-full">
+                      <ProductPreview config={config} />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+                {/* Specs al lado */}
+                <div className="flex-1 min-w-0">
+                  <div className="text-white font-semibold text-sm mb-1.5 truncate">
+                    {PRODUCT_TYPES.find(p => p.id === config.type)?.name}{' '}
+                    {PRODUCT_TYPES.find(p => p.id === config.type)?.styles.find(s => s.id === config.style)?.name}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      `${config.width}x${config.height} cm`,
+                      COLORS.find(c => c.id === config.color)?.name,
+                      config.mosquitero && 'Mosquitero',
+                      config.quantity > 1 && `x${config.quantity}`,
+                    ].filter(Boolean).map((tag, i) => (
+                      <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-white/30 font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <button onClick={handleReset}
+                    className="text-white/20 hover:text-white/40 text-[10px] mt-2 transition-colors">
+                    Reiniciar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Main Content */}
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* Preview */}
+            {/* Desktop Preview — only on lg+ */}
             <motion.div layout
-              className="bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/[0.06] p-6 lg:p-8 order-1">
+              className="hidden lg:block bg-white/[0.03] backdrop-blur-sm rounded-2xl border border-white/[0.06] p-8 order-1">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white/40 text-xs font-semibold uppercase tracking-[0.15em]">Vista Previa</h3>
                 <motion.button onClick={handleReset} whileHover={{ scale: 1.05 }}
@@ -871,8 +935,7 @@ const Designer = () => {
 
               <div className="aspect-square max-h-[400px] mx-auto">
                 <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${config.type}-${config.style}-${config.panels}-${config.color}-${config.glass}-${config.direction}-${config.mosquitero}-${config.quantity}`}
+                  <motion.div key={`d-${previewKey}`}
                     initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.3 }}
                     className="w-full h-full">
@@ -881,7 +944,6 @@ const Designer = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Quick spec badges */}
               <div className="flex flex-wrap gap-2 mt-4 justify-center">
                 {[
                   PRODUCT_TYPES.find(p => p.id === config.type)?.name,
@@ -922,7 +984,7 @@ const Designer = () => {
                   <motion.button onClick={() => setStep(step - 1)}
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 text-white/60 hover:text-white hover:border-white/30 transition-all duration-300 text-sm font-semibold">
-                    <FaArrowLeft className="text-xs" /> Atras
+                    <FaArrowLeft className="text-xs" /> Atrás
                   </motion.button>
                 )}
                 {step < STEPS.length - 1 && (
