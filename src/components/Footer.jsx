@@ -123,9 +123,16 @@ const Footer = () => {
           <p className="text-white/30 text-sm text-center md:text-left">
             {currentYear} Da Vinci Vidrieria y Herreria. Todos los derechos reservados.
           </p>
-          <p className="text-white/30 text-sm flex items-center gap-2">
-            Hecho con <FaHeart className="text-accent/60 text-xs" /> en Buenos Aires
-          </p>
+          <a
+            href="https://ferced.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors duration-300"
+          >
+            <span className="text-xs tracking-wide">Powered by</span>
+            <img src="/ferced-logo.png" alt="Ferced" className="h-5 w-5 opacity-50 hover:opacity-80 transition-opacity" />
+            <span className="text-sm font-semibold tracking-tight">ferced</span>
+          </a>
         </div>
       </div>
 
