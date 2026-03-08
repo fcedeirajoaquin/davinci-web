@@ -10,7 +10,7 @@ const Testimonials = () => {
     {
       name: 'Maria Gonzalez',
       role: 'Propietaria en Nordelta',
-      text: 'Excelente trabajo en todas las ventanas de mi casa. La diferencia en aislacion termica es increible. Muy profesionales y puntuales.',
+      text: 'Excelente trabajo en todas las ventanas de mi casa. La diferencia en aislación térmica es increible. Muy profesionales y puntuales.',
       stars: 5,
     },
     {
@@ -22,7 +22,7 @@ const Testimonials = () => {
     {
       name: 'Laura Fernandez',
       role: 'Propietaria en Palermo',
-      text: 'Cerraron mi balcon y quedo espectacular. El equipo fue muy prolijo y el resultado supero mis expectativas. 100% recomendables.',
+      text: 'Cerraron mi balcón y quedo espectacular. El equipo fue muy prolijo y el resultado supero mis expectativas. 100% recomendables.',
       stars: 5,
     },
   ]
@@ -65,7 +65,7 @@ const Testimonials = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            La satisfaccion de nuestros clientes es nuestra mejor carta de presentacion
+            La satisfacción de nuestros clientes es nuestra mejor carta de presentación
           </p>
         </motion.div>
 

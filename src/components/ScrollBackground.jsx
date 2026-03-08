@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 
 import { useState } from 'react'
 
 const phases = [
-  { label: '01 — Diseno', light: true },
+  { label: '01 — Diseño', light: true },
   { label: '02 — Materiales', light: false },
   { label: '03 — Ensamblaje', light: true },
   { label: '04 — Terminada', light: false },

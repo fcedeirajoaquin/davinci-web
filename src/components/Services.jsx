@@ -18,38 +18,38 @@ const Services = () => {
     {
       icon: <FaWindowMaximize className="text-4xl" />,
       title: 'Ventanas de Aluminio',
-      description: 'Ventanas modernas con aislacion termica y acustica. Diferentes estilos y acabados.',
-      features: ['DVH', 'Corredizas', 'Oscilobatientes', 'Panos fijos'],
+      description: 'Ventanas modernas con aislación térmica y acústica. Diferentes estilos y acabados.',
+      features: ['DVH', 'Corredizas', 'Oscilobatientes', 'Paños fijos'],
     },
     {
       icon: <FaDoorOpen className="text-4xl" />,
       title: 'Puertas y Portones',
       description: 'Puertas de entrada, portones automatizados y cerramientos de seguridad.',
-      features: ['Automaticas', 'Blindadas', 'Vidriadas', 'A medida'],
+      features: ['Automáticas', 'Blindadas', 'Vidriadas', 'A medida'],
     },
     {
       icon: <FaShieldAlt className="text-4xl" />,
       title: 'Cerramientos',
-      description: 'Cerramientos de balcones, terrazas y espacios exteriores con maxima durabilidad.',
-      features: ['Balcones', 'Terrazas', 'Galerias', 'Patios'],
+      description: 'Cerramientos de balcónes, terrazas y espacios exteriores con máxima durabilidad.',
+      features: ['Balcónes', 'Terrazas', 'Galerías', 'Patios'],
     },
     {
       icon: <FaRegSnowflake className="text-4xl" />,
       title: 'Vidrios DVH',
-      description: 'Doble vidriado hermetico para maximo aislamiento termico y acustico.',
+      description: 'Doble vidriado hermético para máximo aislamiento térmico y acústico.',
       features: ['Bajo emisivo', 'Templado', 'Laminado', 'Control solar'],
     },
     {
       icon: <FaPaintRoller className="text-4xl" />,
-      title: 'Diseno Personalizado',
-      description: 'Creamos disenos unicos adaptados a tu estilo y necesidades especificas.',
+      title: 'Diseño Personalizado',
+      description: 'Creamos diseños únicos adaptados a tu estilo y necesidades específicas.',
       features: ['Renders 3D', 'Asesoramiento', 'Medidas exactas', 'Variedad de colores'],
     },
     {
       icon: <FaTools className="text-4xl" />,
-      title: 'Instalacion y Mantenimiento',
-      description: 'Servicio completo de instalacion profesional y mantenimiento preventivo.',
-      features: ['Instalacion', 'Reparacion', 'Mantenimiento', 'Garantia'],
+      title: 'Instalación y Mantenimiento',
+      description: 'Servicio completo de instalación profesional y mantenimiento preventivo.',
+      features: ['Instalación', 'Reparación', 'Mantenimiento', 'Garantía'],
     },
   ]
 
@@ -94,8 +94,8 @@ const Services = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Soluciones integrales en vidrieria y herreria de aluminio. Calidad
-            premium y disenos a medida para cada proyecto.
+            Soluciones integrales en vidriería y herrería de aluminio. Calidad
+            premium y diseños a medida para cada proyecto.
           </p>
         </motion.div>
 

@@ -24,8 +24,8 @@ const Navbar = () => {
     { name: 'Inicio', href: '#hero' },
     { name: 'Nosotros', href: '#about' },
     { name: 'Servicios', href: '#services' },
-    { name: 'Disenador', href: '#designer' },
-    { name: 'Galeria', href: '#gallery' },
+    { name: 'Diseñador', href: '#designer' },
+    { name: 'Galería', href: '#gallery' },
     { name: 'Contacto', href: '#contact' },
   ]
 

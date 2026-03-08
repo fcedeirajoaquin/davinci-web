@@ -110,15 +110,15 @@ const Hero = () => {
               variants={item}
               className="text-lg text-white/60 leading-relaxed max-w-lg text-center"
             >
-              Fabricacion e instalacion de ventanas, puertas y cerramientos en aluminio.
-              Mas de 10 anos transformando espacios con diseno y excelencia.
+              Fabricación e instalación de ventanas, puertas y cerramientos en aluminio.
+              Más de 10 años transformando espacios con diseño y excelencia.
             </motion.p>
 
             <motion.div variants={container} className="space-y-3">
               {[
                 'Materiales de primera calidad',
-                'Instalacion profesional garantizada',
-                'Disenos personalizados a medida',
+                'Instalación profesional garantizada',
+                'Diseños personalizados a medida',
               ].map((feature, i) => (
                 <motion.div
                   key={i}
@@ -159,9 +159,9 @@ const Hero = () => {
               className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10 w-full"
             >
               {[
-                { number: 10, suffix: '+', label: 'Anos' },
+                { number: 10, suffix: '+', label: 'Años' },
                 { number: 500, suffix: '+', label: 'Proyectos' },
-                { number: 100, suffix: '%', label: 'Satisfaccion' },
+                { number: 100, suffix: '%', label: 'Satisfacción' },
               ].map((stat, i) => (
                 <motion.div key={i} variants={item} className="text-center">
                   <div className="text-3xl md:text-4xl font-display text-accent mb-1">

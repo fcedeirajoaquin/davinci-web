@@ -30,7 +30,7 @@ const PRODUCT_TYPES = [
     styles: [
       { id: 'corrediza', name: 'Corrediza', panels: [2, 3, 4], hasDirection: true },
       { id: 'oscilobatiente', name: 'Oscilobatiente', panels: [1, 2], hasDirection: true },
-      { id: 'pano-fijo', name: 'Pano Fijo', panels: [1, 2, 3], hasDirection: false },
+      { id: 'pano-fijo', name: 'Paño Fijo', panels: [1, 2, 3], hasDirection: false },
       { id: 'de-abrir', name: 'De Abrir', panels: [1, 2], hasDirection: true },
       { id: 'banderola', name: 'Banderola', panels: [1], hasDirection: false },
     ],
@@ -60,9 +60,9 @@ const PRODUCT_TYPES = [
     name: 'Cerramiento',
     icon: <FaShieldAlt />,
     styles: [
-      { id: 'balcon', name: 'Balcon', panels: [3, 4, 5, 6], hasDirection: false },
+      { id: 'balcon', name: 'Balcón', panels: [3, 4, 5, 6], hasDirection: false },
       { id: 'terraza', name: 'Terraza', panels: [4, 5, 6, 8], hasDirection: false },
-      { id: 'galeria', name: 'Galeria', panels: [3, 4, 5], hasDirection: false },
+      { id: 'galeria', name: 'Galería', panels: [3, 4, 5], hasDirection: false },
       { id: 'patio', name: 'Patio', panels: [2, 3, 4], hasDirection: false },
     ],
     defaultWidth: 300,
@@ -88,7 +88,7 @@ const PRODUCT_TYPES = [
 ]
 
 const GLASS_TYPES = [
-  { id: 'dvh', name: 'DVH', description: 'Doble vidriado hermetico' },
+  { id: 'dvh', name: 'DVH', description: 'Doble vidriado hermético' },
   { id: 'simple', name: 'Simple', description: 'Vidrio simple 4mm' },
   { id: 'templado', name: 'Templado', description: 'Vidrio templado de seguridad' },
   { id: 'laminado', name: 'Laminado', description: 'Vidrio laminado 3+3' },
@@ -104,7 +104,7 @@ const COLORS = [
 ]
 
 const LOCATIONS = [
-  'Living', 'Cocina', 'Dormitorio', 'Bano', 'Balcon',
+  'Living', 'Cocina', 'Dormitorio', 'Baño', 'Balcón',
   'Terraza', 'Frente', 'Contrafrente', 'Garage', 'Otro',
 ]
 
@@ -148,10 +148,10 @@ const formatDesign = (config, index) => {
     index !== undefined ? `--- Producto ${index + 1} ---` : '',
     `*Producto:* ${product?.name} ${style?.name}`,
     `*Medidas:* ${config.width} x ${config.height} cm`,
-    `*Panos:* ${config.panels} | *Apertura:* ${style?.hasDirection ? config.direction : 'N/A'}`,
+    `*Paños:* ${config.panels} | *Apertura:* ${style?.hasDirection ? config.direction : 'N/A'}`,
     `*Vidrio:* ${glass?.name} | *Mosquitero:* ${config.mosquitero ? 'Si' : 'No'}`,
     `*Color:* ${color?.name}`,
-    `*Ubicacion:* ${config.location}`,
+    `*Ubicación:* ${config.location}`,
     `*Cantidad:* ${config.quantity} unidad${config.quantity > 1 ? 'es' : ''}`,
     config.notes ? `*Notas:* ${config.notes}` : '',
   ]
@@ -438,7 +438,7 @@ const StepStyle = ({ config, setConfig }) => {
             >
               <span className="font-medium text-sm">{styleOpt.name}</span>
               <span className={`text-xs px-2 py-1 rounded-lg ${isSelected ? 'bg-accent/20 text-accent' : 'bg-white/5 text-white/30'}`}>
-                {styleOpt.panels.length === 1 ? `${styleOpt.panels[0]} pano${styleOpt.panels[0] > 1 ? 's' : ''}` : `${styleOpt.panels[0]}-${styleOpt.panels[styleOpt.panels.length - 1]} panos`}
+                {styleOpt.panels.length === 1 ? `${styleOpt.panels[0]} pano${styleOpt.panels[0] > 1 ? 's' : ''}` : `${styleOpt.panels[0]}-${styleOpt.panels[styleOpt.panels.length - 1]} paños`}
               </span>
             </motion.button>
           )
@@ -515,7 +515,7 @@ const StepDimensions = ({ config, setConfig }) => {
 
       {/* Panel count */}
       <div>
-        <label className="block text-white/50 text-sm font-medium mb-2">Cantidad de Panos</label>
+        <label className="block text-white/50 text-sm font-medium mb-2">Cantidad de Paños</label>
         <div className="flex gap-3">
           {styleOpt.panels.map((p) => (
             <motion.button key={p}
@@ -673,12 +673,12 @@ const StepSummary = ({ config, setConfig, cart, onAddToCart, onRemoveFromCart, o
     { label: 'Producto', value: product?.name },
     { label: 'Estilo', value: style?.name },
     { label: 'Medidas', value: `${config.width} x ${config.height} cm` },
-    { label: 'Panos', value: config.panels },
+    { label: 'Paños', value: config.panels },
     ...(style?.hasDirection ? [{ label: 'Apertura', value: config.direction === 'izquierda' ? 'Izquierda' : 'Derecha' }] : []),
     { label: 'Vidrio', value: glass?.name },
     { label: 'Mosquitero', value: config.mosquitero ? 'Si' : 'No' },
     { label: 'Color', value: color?.name },
-    { label: 'Ubicacion', value: config.location },
+    { label: 'Ubicación', value: config.location },
     { label: 'Cantidad', value: `${config.quantity} unidad${config.quantity > 1 ? 'es' : ''}` },
   ]
 
@@ -698,7 +698,7 @@ const StepSummary = ({ config, setConfig, cart, onAddToCart, onRemoveFromCart, o
 
       {/* Notes */}
       <textarea rows={2}
-        placeholder="Notas: color RAL especifico, vidrio esmerilado, etc."
+        placeholder="Notas: color RAL específico, vidrio esmerilado, etc."
         className="w-full px-3 py-2.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/20 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-xs resize-none"
         value={config.notes}
         onChange={(e) => setConfig(prev => ({ ...prev, notes: e.target.value }))} />
@@ -728,7 +728,7 @@ const StepSummary = ({ config, setConfig, cart, onAddToCart, onRemoveFromCart, o
       <motion.button onClick={onSend} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
         className="w-full bg-accent text-deep py-4 rounded-xl font-bold text-base hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(78,214,241,0.2)] flex items-center justify-center gap-3">
         <FaWhatsapp className="text-xl" />
-        Enviar {totalItems > 1 ? `${totalItems} productos` : 'diseno'} por WhatsApp
+        Enviar {totalItems > 1 ? `${totalItems} productos` : 'diseño'} por WhatsApp
       </motion.button>
     </div>
   )
@@ -764,11 +764,11 @@ const Designer = () => {
     const isSingle = allDesigns.length === 1
 
     const lines = [
-      `Hola! Quiero consultar por ${isSingle ? 'un diseno' : allDesigns.length + ' productos'}:`,
+      `Hola! Quiero consultar por ${isSingle ? 'un diseño' : allDesigns.length + ' productos'}:`,
       '',
       ...allDesigns.map((d, i) => formatDesign(d, isSingle ? undefined : i)),
       '',
-      'Disenado desde el configurador Da Vinci',
+      'Diseñado desde el configurador Da Vinci',
     ]
 
     window.open(`https://wa.me/5491161549740?text=${encodeURIComponent(lines.join('\n'))}`, '_blank')
@@ -804,7 +804,7 @@ const Designer = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
           className="text-center mb-16">
           <span className="inline-block text-accent/60 text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-            Disenador Interactivo
+            Diseñador Interactivo
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6">
             <TextReveal as="span" className="text-white">Diagrama tu </TextReveal>
@@ -813,7 +813,7 @@ const Designer = () => {
           <motion.div initial={{ width: 0 }} animate={isInView ? { width: 80 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }} className="h-0.5 bg-accent mx-auto mb-6" />
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Configura tu abertura paso a paso y envianos el diseno. Nuestro equipo te contactara con un presupuesto a medida.
+            Configura tu abertura paso a paso y envianos el diseño. Nuestro equipo te contactara con un presupuesto a medida.
           </p>
         </motion.div>
 

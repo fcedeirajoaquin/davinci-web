@@ -53,11 +53,11 @@ const Gallery = () => {
   const galleryItems = [
     { id: 1, category: 'windows', title: 'Ventana Corrediza DVH', image: '/images/ventana-corrediza.jpg' },
     { id: 2, category: 'doors', title: 'Puerta Principal Vidriada', image: '/images/puerta-vidriada.jpg' },
-    { id: 3, category: 'closures', title: 'Cerramiento de Balcon', image: '/images/cerramiento-balcon.jpg' },
+    { id: 3, category: 'closures', title: 'Cerramiento de Balcón', image: '/images/cerramiento-balcón.jpg' },
     { id: 4, category: 'windows', title: 'Ventana Oscilobatiente', image: '/images/ventana-oscilobatiente.jpg' },
     { id: 5, category: 'doors', title: 'Porton Automatico', image: '/images/porton-automatico.jpg' },
     { id: 6, category: 'closures', title: 'Cerramiento de Terraza', image: '/images/cerramiento-terraza.jpg' },
-    { id: 7, category: 'windows', title: 'Ventana de Pano Fijo', image: '/images/ventana-pano-fijo.jpg' },
+    { id: 7, category: 'windows', title: 'Ventana de Paño Fijo', image: '/images/ventana-pano-fijo.jpg' },
     { id: 8, category: 'doors', title: 'Puerta Corrediza Pesada', image: '/images/puerta-corrediza.jpg' },
   ]
 
@@ -100,7 +100,7 @@ const Gallery = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-text/60 text-lg max-w-2xl mx-auto">
-            Explora nuestra galeria de proyectos realizados. Cada trabajo refleja
+            Explora nuestra galería de proyectos realizados. Cada trabajo refleja
             nuestro compromiso con la excelencia.
           </p>
         </motion.div>
@@ -178,7 +178,7 @@ const Gallery = () => {
             Te gustaria ver mas de nuestros trabajos?
           </p>
           <motion.a
-            href="https://www.instagram.com/davinci_vidrieriayherreria/"
+            href="https://www.instagram.com/davinci_vidrieríayherrería/"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.03 }}

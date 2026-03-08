@@ -15,12 +15,12 @@ const Footer = () => {
     { name: 'Inicio', href: '#hero' },
     { name: 'Nosotros', href: '#about' },
     { name: 'Servicios', href: '#services' },
-    { name: 'Galeria', href: '#gallery' },
+    { name: 'Galería', href: '#gallery' },
     { name: 'Contacto', href: '#contact' },
   ]
 
   const socialLinks = [
-    { icon: <FaInstagram className="text-xl" />, href: 'https://www.instagram.com/davinci_vidrieriayherreria/', label: 'Instagram' },
+    { icon: <FaInstagram className="text-xl" />, href: 'https://www.instagram.com/davinci_vidrieríayherrería/', label: 'Instagram' },
     { icon: <FaWhatsapp className="text-xl" />, href: 'https://wa.me/5491161549740', label: 'WhatsApp' },
   ]
 
@@ -47,8 +47,8 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-white/40 mb-6 max-w-md leading-relaxed text-sm">
-                Creadores de espacios unicos. Especializados en vidrieria y
-                herreria de aluminio con mas de 10 anos de experiencia.
+                Creadores de espacios únicos. Especializados en vidriería y
+                herrería de aluminio con mas de 10 años de experiencia.
               </p>
               <div className="space-y-2.5 text-white/40 text-sm">
                 <div className="flex items-center gap-3">

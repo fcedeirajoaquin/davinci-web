@@ -30,10 +30,10 @@ const Contact = () => {
   }
 
   const contactInfo = [
-    { icon: <FaPhone className="text-xl" />, title: 'Telefono', info: '011 6154-9740', link: 'tel:+5491161549740' },
+    { icon: <FaPhone className="text-xl" />, title: 'Teléfono', info: '011 6154-9740', link: 'tel:+5491161549740' },
     { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: 'Chatea con nosotros', link: 'https://wa.me/5491161549740' },
-    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicacion', info: 'Amenabar 1929, Modena', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
-    { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: '@davinci_vidrieriayherreria', link: 'https://www.instagram.com/davinci_vidrieriayherreria/' },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: 'Amenabar 1929, Modena', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
+    { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: '@davinci_vidrieríayherrería', link: 'https://www.instagram.com/davinci_vidrieríayherrería/' },
   ]
 
   const container = {
@@ -128,7 +128,7 @@ const Contact = () => {
 
                 <div>
                   <label className="block text-white/50 mb-2 text-sm font-medium">
-                    Telefono
+                    Teléfono
                   </label>
                   <input
                     type="tel"

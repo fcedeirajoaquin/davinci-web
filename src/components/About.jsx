@@ -20,8 +20,8 @@ const About = () => {
 
   const features = [
     { icon: <FaAward className="text-3xl" />, title: 'Calidad Garantizada', description: 'Materiales premium y acabados perfectos en cada proyecto' },
-    { icon: <FaUsers className="text-3xl" />, title: 'Equipo Profesional', description: 'Expertos con anos de experiencia en el sector' },
-    { icon: <FaRocket className="text-3xl" />, title: 'Innovacion', description: 'Ultimas tecnologias y tendencias en diseno' },
+    { icon: <FaUsers className="text-3xl" />, title: 'Equipo Profesional', description: 'Expertos con años de experiencia en el sector' },
+    { icon: <FaRocket className="text-3xl" />, title: 'Innovación', description: 'Últimas tecnologías y tendencias en diseño' },
     { icon: <FaHeart className="text-3xl" />, title: 'Pasion por el Detalle', description: 'Cuidamos cada aspecto de tu proyecto' },
   ]
 
@@ -51,7 +51,7 @@ const About = () => {
             />
             <p className="text-text/60 text-lg max-w-2xl mx-auto leading-relaxed">
               Con mas de una decada de experiencia, nos especializamos en la
-              fabricacion e instalacion de aberturas de alta calidad que
+              fabricación e instalación de aberturas de alta calidad que
               transforman espacios.
             </p>
           </motion.div>
@@ -60,12 +60,12 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
             <motion.div variants={item} className="space-y-6">
               <h3 className="text-3xl font-display text-deep">
-                Creadores de espacios unicos
+                Creadores de espacios únicos
               </h3>
               <p className="text-text/60 leading-relaxed">
                 En <span className="text-primary font-semibold">Da Vinci</span>,
                 entendemos que las aberturas son mucho mas que simples elementos
-                funcionales. Son parte integral del diseno de tu hogar o
+                funcionales. Son parte integral del diseño de tu hogar o
                 negocio, aportando luz, seguridad y estilo.
               </p>
               <p className="text-text/60 leading-relaxed">
