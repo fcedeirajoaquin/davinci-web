@@ -211,7 +211,7 @@ const Contact = () => {
             >
               <iframe
                 title="Ubicación Da Vinci Aberturas"
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1641.5!2d-58.4571461!3d-34.5646936!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zVmlkcmllcsOtYSBIZXJyZXLDrWEgRGEgVmluY2k!5e0!3m2!1ses-419!2sar"
+                src="https://www.google.com/maps?q=Vidriería+%26+Herrería+Da+Vinci+Amenábar+1929+Belgrano+Buenos+Aires&z=16&output=embed"
                 width="100%"
                 height="240"
                 style={{ border: 0 }}
