@@ -23,8 +23,8 @@ function App() {
       </a>
       <ScrollProgress />
       <WhatsAppFloat />
-      <div className="relative z-10">
-        <Navbar />
+      <Navbar />
+      <main className="relative z-10">
         <Hero />
         <About />
         <Services />
@@ -34,8 +34,8 @@ function App() {
         <Testimonials />
         <FAQ />
         <Contact />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   )
 }
