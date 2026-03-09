@@ -98,7 +98,7 @@ const About = () => {
             <motion.div variants={item} className="relative">
               <div className="rounded-3xl overflow-hidden border border-primary/5 shadow-xl">
                 <img
-                  src="/images/about.jpg"
+                  src="/images/about.webp"
                   alt="Casa moderna con ventanales de aluminio"
                   className="w-full object-cover aspect-[4/3]"
                   loading="lazy"

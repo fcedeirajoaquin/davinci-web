@@ -121,7 +121,7 @@ const Services = () => {
                   {service.title}
                 </h3>
 
-                <p className="text-white/40 mb-6 leading-relaxed text-sm">
+                <p className="text-white/60 mb-6 leading-relaxed text-sm">
                   {service.description}
                 </p>
 
@@ -151,7 +151,7 @@ const Services = () => {
           transition={{ delay: 0.8 }}
           className="text-center mt-16"
         >
-          <p className="text-white/40 mb-6 text-lg">
+          <p className="text-white/60 mb-6 text-lg">
             No encontraste lo que buscabas? Trabajamos con proyectos personalizados
           </p>
           <motion.a

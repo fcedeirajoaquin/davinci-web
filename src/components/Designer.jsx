@@ -611,6 +611,29 @@ const StepGlass = ({ config, setConfig }) => (
   </div>
 )
 
+const MiniColorPreview = ({ color, isSelected }) => (
+  <svg viewBox="0 0 36 32" className="w-9 h-8 flex-shrink-0">
+    <defs>
+      <linearGradient id={`cp-${color.id}`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="white" stopOpacity={0.15} />
+        <stop offset="100%" stopColor="black" stopOpacity={0.1} />
+      </linearGradient>
+    </defs>
+    <rect x={2} y={2} width={32} height={28} rx={2}
+      fill={color.hex} stroke={color.frame} strokeWidth={3} />
+    <rect x={2} y={2} width={32} height={28} rx={2}
+      fill={`url(#cp-${color.id})`} />
+    <rect x={5} y={5} width={12.5} height={22} rx={1}
+      fill="rgba(135,206,235,0.2)" stroke={color.frame} strokeWidth={0.6} />
+    <rect x={18.5} y={5} width={12.5} height={22} rx={1}
+      fill="rgba(135,206,235,0.2)" stroke={color.frame} strokeWidth={0.6} />
+    {isSelected && <>
+      <line x1={7} y1={7} x2={8} y2={24} stroke="white" strokeWidth={0.5} opacity={0.25} />
+      <line x1={20.5} y1={7} x2={21.5} y2={24} stroke="white" strokeWidth={0.5} opacity={0.25} />
+    </>}
+  </svg>
+)
+
 const StepColor = ({ config, setConfig }) => (
   <div className="grid grid-cols-2 gap-3">
     {COLORS.map((color) => {
@@ -624,8 +647,7 @@ const StepColor = ({ config, setConfig }) => (
               ? 'bg-accent/15 border-accent/40'
               : 'bg-white/[0.04] border-white/[0.08] hover:border-white/20'
           }`}>
-          <div className={`w-8 h-8 rounded-lg border-2 flex-shrink-0 ${isSelected ? 'border-accent' : 'border-white/20'}`}
-            style={{ backgroundColor: color.hex }} />
+          <MiniColorPreview color={color} isSelected={isSelected} />
           <span className={`text-xs font-medium ${isSelected ? 'text-white' : 'text-white/50'}`}>{color.name}</span>
         </motion.button>
       )

@@ -47,7 +47,7 @@ const Hero = () => {
       {/* Background image + overlays */}
       <div className="absolute inset-0">
         <img
-          src="/images/hero-bg.jpg"
+          src="/images/hero-bg.webp"
           alt=""
           fetchpriority="high"
           width={1920}

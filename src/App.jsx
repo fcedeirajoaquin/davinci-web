@@ -1,16 +1,18 @@
+import { lazy, Suspense } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Services from './components/Services'
-import Gallery from './components/Gallery'
-import About from './components/About'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
 import ScrollProgress from './components/ScrollProgress'
-import Testimonials from './components/Testimonials'
-import ParallaxCTA from './components/ParallaxCTA'
-import Designer from './components/Designer'
 import WhatsAppFloat from './components/WhatsAppFloat'
-import FAQ from './components/FAQ'
+
+const About = lazy(() => import('./components/About'))
+const Services = lazy(() => import('./components/Services'))
+const Designer = lazy(() => import('./components/Designer'))
+const ParallaxCTA = lazy(() => import('./components/ParallaxCTA'))
+const Gallery = lazy(() => import('./components/Gallery'))
+const Testimonials = lazy(() => import('./components/Testimonials'))
+const FAQ = lazy(() => import('./components/FAQ'))
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
 
 function App() {
   return (
@@ -24,18 +26,20 @@ function App() {
       <ScrollProgress />
       <WhatsAppFloat />
       <Navbar />
-      <main className="relative z-10">
-        <Hero />
-        <About />
-        <Services />
-        <Designer />
-        <ParallaxCTA />
-        <Gallery />
-        <Testimonials />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <main className="relative z-10">
+          <Hero />
+          <About />
+          <Services />
+          <Designer />
+          <ParallaxCTA />
+          <Gallery />
+          <Testimonials />
+          <FAQ />
+          <Contact />
+        </main>
+        <Footer />
+      </Suspense>
     </div>
   )
 }

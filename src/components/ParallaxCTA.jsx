@@ -18,7 +18,7 @@ const ParallaxCTA = () => {
         className="absolute inset-0 -top-[20%] -bottom-[20%]"
       >
         <img
-          src="/images/parallax-cta.jpg"
+          src="/images/parallax-cta.webp"
           alt=""
           className="w-full h-full object-cover"
         />

@@ -53,11 +53,11 @@ const Footer = () => {
                   <span className="text-accent/60 font-medium text-xs tracking-[0.15em] uppercase">Aberturas</span>
                 </div>
               </div>
-              <p className="text-white/40 mb-6 max-w-md leading-relaxed text-sm">
+              <p className="text-white/60 mb-6 max-w-md leading-relaxed text-sm">
                 Creadores de espacios únicos. Especializados en vidriería y
                 herrería de aluminio con mas de 10 años de experiencia.
               </p>
-              <div className="space-y-2.5 text-white/40 text-sm">
+              <div className="space-y-2.5 text-white/60 text-sm">
                 <div className="flex items-center gap-3">
                   <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
                   <span>Amenábar 1929, Belgrano</span>
@@ -85,7 +85,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-white/40 hover:text-accent transition-colors text-sm inline-block"
+                    className="text-white/60 hover:text-accent transition-colors text-sm inline-block hover:underline"
                   >
                     {link.name}
                   </a>
@@ -127,14 +127,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-white/[0.06] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-white/30 text-sm text-center md:text-left">
+          <p className="text-white/50 text-sm text-center md:text-left">
             {currentYear} Da Vinci Vidrieria y Herreria. Todos los derechos reservados.
           </p>
           <a
             href="https://ferced.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors duration-300"
+            className="flex items-center gap-2 text-white/50 hover:text-white/60 transition-colors duration-300"
           >
             <span className="text-xs tracking-wide">Powered by</span>
             <img src="/ferced-logo.png" alt="Ferced" className="h-5 w-5 opacity-50 hover:opacity-80 transition-opacity" />
@@ -150,6 +150,8 @@ const Footer = () => {
         animate={showBackToTop ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, pointerEvents: 'none' }}
         whileHover={{ y: -3 }}
         transition={{ duration: 0.3 }}
+        tabIndex={showBackToTop ? 0 : -1}
+        aria-hidden={!showBackToTop}
         className="fixed bottom-8 right-8 w-11 h-11 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center text-deep shadow-lg shadow-accent/20 hover:bg-accent transition-all duration-300 z-50"
         aria-label="Volver arriba"
       >

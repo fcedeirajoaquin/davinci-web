@@ -59,7 +59,7 @@ const Testimonials = () => {
       </div>
       <div>
         <p className="text-white font-bold text-sm">{testimonial.name}</p>
-        <p className="text-white/40 text-xs">{testimonial.role}</p>
+        <p className="text-white/60 text-xs">{testimonial.role}</p>
       </div>
     </div>
   )

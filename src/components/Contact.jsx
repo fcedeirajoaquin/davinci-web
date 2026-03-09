@@ -196,7 +196,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-bold text-sm mb-0.5">{info.title}</h4>
-                  <p className="text-white/40 text-sm group-hover:text-accent/70 transition-colors">
+                  <p className="text-white/60 text-sm group-hover:text-accent/70 transition-colors">
                     {info.info}
                   </p>
                 </div>
