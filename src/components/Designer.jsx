@@ -871,6 +871,7 @@ const Designer = () => {
                   <motion.button
                     ref={el => stepRefs.current[i] = el}
                     onClick={() => i <= step && setStep(i)}
+                    aria-label={s.label}
                     whileHover={i <= step ? { scale: 1.05 } : {}}
                     className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300 whitespace-nowrap ${
                       i === step

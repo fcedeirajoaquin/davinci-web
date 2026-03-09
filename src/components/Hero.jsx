@@ -185,7 +185,7 @@ const Hero = () => {
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <a href="#about" className="text-white/50 hover:text-accent transition-colors">
+        <a href="#about" aria-label="Ir a la siguiente sección" className="text-white/50 hover:text-accent transition-colors">
           <FaChevronDown className="text-xl" />
         </a>
       </motion.div>

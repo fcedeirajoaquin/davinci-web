@@ -83,6 +83,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
             className="md:hidden text-white text-2xl focus:outline-none hover:text-accent transition-colors p-2"
           >
             {isOpen ? <FaTimes /> : <FaBars />}
