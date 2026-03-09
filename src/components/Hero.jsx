@@ -49,6 +49,9 @@ const Hero = () => {
         <img
           src="/images/hero-bg.jpg"
           alt=""
+          fetchpriority="high"
+          width={1920}
+          height={1080}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-deep/75" />
@@ -167,7 +170,7 @@ const Hero = () => {
                   <div className="text-3xl md:text-4xl font-display text-accent mb-1">
                     <AnimatedCounter target={stat.number} suffix={stat.suffix} duration={2000} />
                   </div>
-                  <div className="text-xs text-white/40 font-medium uppercase tracking-wider">
+                  <div className="text-xs text-white/60 font-medium uppercase tracking-wider">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -182,7 +185,7 @@ const Hero = () => {
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <a href="#about" className="text-white/30 hover:text-accent transition-colors">
+        <a href="#about" className="text-white/50 hover:text-accent transition-colors">
           <FaChevronDown className="text-xl" />
         </a>
       </motion.div>

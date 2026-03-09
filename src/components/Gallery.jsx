@@ -1,6 +1,6 @@
 import { motion, useInView, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { FaExpand, FaInstagram, FaTimes } from 'react-icons/fa'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { FaExpand, FaInstagram, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import TextReveal from './TextReveal'
 
 const TiltCard = ({ children, className }) => {
@@ -41,7 +41,31 @@ const Gallery = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [lightbox, setLightbox] = useState(null)
+  const [lightboxIndex, setLightboxIndex] = useState(null)
+
+  const navigateLightbox = useCallback((direction) => {
+    if (lightboxIndex === null) return
+    const items = selectedCategory === 'all'
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === selectedCategory)
+    const newIndex = (lightboxIndex + direction + items.length) % items.length
+    setLightboxIndex(newIndex)
+  }, [lightboxIndex, selectedCategory])
+
+  useEffect(() => {
+    if (lightboxIndex === null) return
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setLightboxIndex(null)
+      if (e.key === 'ArrowLeft') navigateLightbox(-1)
+      if (e.key === 'ArrowRight') navigateLightbox(1)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [lightboxIndex, navigateLightbox])
 
   const categories = [
     { id: 'all', name: 'Todos' },
@@ -53,7 +77,7 @@ const Gallery = () => {
   const galleryItems = [
     { id: 1, category: 'windows', title: 'Ventana Corrediza DVH', image: '/images/ventana-corrediza.jpg' },
     { id: 2, category: 'doors', title: 'Puerta Principal Vidriada', image: '/images/puerta-vidriada.jpg' },
-    { id: 3, category: 'closures', title: 'Cerramiento de Balcón', image: '/images/cerramiento-balcón.jpg' },
+    { id: 3, category: 'closures', title: 'Cerramiento de Balcón', image: '/images/cerramiento-balcon.jpg' },
     { id: 4, category: 'windows', title: 'Ventana Oscilobatiente', image: '/images/ventana-oscilobatiente.jpg' },
     { id: 5, category: 'doors', title: 'Porton Automatico', image: '/images/porton-automatico.jpg' },
     { id: 6, category: 'closures', title: 'Cerramiento de Terraza', image: '/images/cerramiento-terraza.jpg' },
@@ -136,14 +160,14 @@ const Gallery = () => {
           animate={isInView ? 'visible' : 'hidden'}
           className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
         >
-          {filteredItems.map((galleryItem) => (
+          {filteredItems.map((galleryItem, idx) => (
             <motion.div
               key={galleryItem.id}
               variants={item}
               layout
             >
               <TiltCard className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-shadow duration-300">
-                <div onClick={() => setLightbox(galleryItem)} className="absolute inset-0">
+                <div onClick={() => setLightboxIndex(idx)} className="absolute inset-0">
                   <img
                     src={galleryItem.image}
                     alt={galleryItem.title}
@@ -193,21 +217,44 @@ const Gallery = () => {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lightbox && (
+        {lightboxIndex !== null && filteredItems[lightboxIndex] && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
+            onClick={() => setLightboxIndex(null)}
             className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 cursor-pointer"
           >
             <motion.button
-              onClick={() => setLightbox(null)}
+              onClick={() => setLightboxIndex(null)}
               className="absolute top-6 right-6 text-white/70 hover:text-white text-2xl z-10"
+              aria-label="Cerrar"
             >
               <FaTimes />
             </motion.button>
+
+            {/* Navigation arrows */}
+            <motion.button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox(-1) }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all z-10"
+              aria-label="Imagen anterior"
+            >
+              <FaChevronLeft />
+            </motion.button>
+            <motion.button
+              onClick={(e) => { e.stopPropagation(); navigateLightbox(1) }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all z-10"
+              aria-label="Imagen siguiente"
+            >
+              <FaChevronRight />
+            </motion.button>
+
             <motion.div
+              key={filteredItems[lightboxIndex].id}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -216,12 +263,13 @@ const Gallery = () => {
               className="relative max-w-4xl w-full max-h-[85vh] cursor-default"
             >
               <img
-                src={lightbox.image}
-                alt={lightbox.title}
+                src={filteredItems[lightboxIndex].image}
+                alt={filteredItems[lightboxIndex].title}
                 className="w-full h-full object-contain rounded-2xl"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent rounded-b-2xl p-6">
-                <h3 className="text-white font-bold text-xl">{lightbox.title}</h3>
+                <h3 className="text-white font-bold text-xl">{filteredItems[lightboxIndex].title}</h3>
+                <p className="text-white/50 text-sm mt-1">{lightboxIndex + 1} / {filteredItems.length}</p>
               </div>
             </motion.div>
           </motion.div>

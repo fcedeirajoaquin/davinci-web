@@ -10,10 +10,17 @@ import Testimonials from './components/Testimonials'
 import ParallaxCTA from './components/ParallaxCTA'
 import Designer from './components/Designer'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import FAQ from './components/FAQ'
 
 function App() {
   return (
     <div className="App relative">
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:bg-accent focus:text-deep focus:px-6 focus:py-3 focus:rounded-xl focus:font-bold focus:shadow-lg"
+      >
+        Saltar al contenido
+      </a>
       <ScrollProgress />
       <WhatsAppFloat />
       <div className="relative z-10">
@@ -25,6 +32,7 @@ function App() {
         <ParallaxCTA />
         <Gallery />
         <Testimonials />
+        <FAQ />
         <Contact />
         <Footer />
       </div>

@@ -20,7 +20,10 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const message = `Hola! Mi nombre es ${formData.name}. ${formData.message}`
+    let message = `Hola! Mi nombre es ${formData.name}.`
+    if (formData.email) message += `\nEmail: ${formData.email}`
+    if (formData.phone) message += `\nTeléfono: ${formData.phone}`
+    message += `\n\n${formData.message}`
     const whatsappUrl = `https://wa.me/5491161549740?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
@@ -32,7 +35,7 @@ const Contact = () => {
   const contactInfo = [
     { icon: <FaPhone className="text-xl" />, title: 'Teléfono', info: '011 6154-9740', link: 'tel:+5491161549740' },
     { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: 'Chatea con nosotros', link: 'https://wa.me/5491161549740' },
-    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: 'Amenabar 1929, Modena', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: 'Amenábar 1929, Belgrano', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
     { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: '@davinci_vidrieríayherrería', link: 'https://www.instagram.com/davinci_vidrieríayherrería/' },
   ]
 
@@ -46,8 +49,7 @@ const Contact = () => {
     visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   }
 
-  const inputClasses = "w-full px-4 py-3.5 bg-white border border-deep/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-sm"
-  const darkInputClasses = "w-full px-4 py-3.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-sm"
+  const inputClasses = "w-full px-4 py-3.5 bg-white/[0.06] border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-sm"
 
   return (
     <section id="contact" className="py-24 bg-deep relative overflow-hidden">
@@ -97,60 +99,64 @@ const Contact = () => {
               </h3>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label className="block text-white/50 mb-2 text-sm font-medium">
+                  <label htmlFor="contact-name" className="block text-white/50 mb-2 text-sm font-medium">
                     Nombre completo
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className={darkInputClasses}
+                    className={inputClasses}
                     placeholder="Juan Perez"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/50 mb-2 text-sm font-medium">
+                  <label htmlFor="contact-email" className="block text-white/50 mb-2 text-sm font-medium">
                     Email
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className={darkInputClasses}
+                    className={inputClasses}
                     placeholder="juan@email.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/50 mb-2 text-sm font-medium">
+                  <label htmlFor="contact-phone" className="block text-white/50 mb-2 text-sm font-medium">
                     Teléfono
                   </label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={darkInputClasses}
+                    className={inputClasses}
                     placeholder="+54 11 1234-5678"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-white/50 mb-2 text-sm font-medium">
+                  <label htmlFor="contact-message" className="block text-white/50 mb-2 text-sm font-medium">
                     Mensaje
                   </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows="4"
-                    className={`${darkInputClasses} resize-none`}
+                    className={`${inputClasses} resize-none`}
                     placeholder="Contanos sobre tu proyecto..."
                   />
                 </div>
@@ -200,23 +206,20 @@ const Contact = () => {
             {/* Map */}
             <motion.div
               variants={item}
-              className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] flex items-center justify-center"
-              style={{ minHeight: '200px' }}
+              className="bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-white/[0.06] overflow-hidden"
+              style={{ minHeight: '240px' }}
             >
-              <div className="text-center">
-                <FaMapMarkerAlt className="text-accent text-4xl mx-auto mb-4" />
-                <p className="text-white font-semibold">Amenabar 1929</p>
-                <p className="text-white/40 text-sm mb-4">Modena, Buenos Aires</p>
-                <motion.a
-                  href="https://maps.google.com/?q=Amenabar+1929+Buenos+Aires"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.03 }}
-                  className="inline-block text-accent text-sm font-semibold hover:underline"
-                >
-                  Ver en Google Maps
-                </motion.a>
-              </div>
+              <iframe
+                title="Ubicación Da Vinci Aberturas"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.5!2d-58.65!3d-34.67!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQW1lbmFiYXIgMTkyOSwgTW9kZW5h!5e0!3m2!1ses!2sar!4v1700000000000"
+                width="100%"
+                height="240"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full"
+              />
             </motion.div>
           </motion.div>
         </div>

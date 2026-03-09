@@ -1,10 +1,19 @@
 import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { FaStar, FaQuoteLeft } from 'react-icons/fa'
+import { useRef, useState, useEffect } from 'react'
+import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 const Testimonials = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const testimonials = [
     {
@@ -36,6 +45,24 @@ const Testimonials = () => {
     hidden: { y: 40, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } },
   }
+
+  const TestimonialCard = ({ testimonial }) => (
+    <div className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] hover:border-accent/20 transition-all duration-300 relative h-full">
+      <FaQuoteLeft className="text-accent/20 text-3xl mb-4" />
+      <p className="text-white/60 leading-relaxed mb-6 text-sm">
+        "{testimonial.text}"
+      </p>
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: testimonial.stars }).map((_, i) => (
+          <FaStar key={i} className="text-accent text-sm" />
+        ))}
+      </div>
+      <div>
+        <p className="text-white font-bold text-sm">{testimonial.name}</p>
+        <p className="text-white/40 text-xs">{testimonial.role}</p>
+      </div>
+    </div>
+  )
 
   return (
     <section className="py-24 bg-deep relative overflow-hidden">
@@ -69,35 +96,81 @@ const Testimonials = () => {
           </p>
         </motion.div>
 
+        {/* Desktop: Grid */}
         <motion.div
           variants={container}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid md:grid-cols-3 gap-6"
+          className="hidden md:grid md:grid-cols-3 gap-6"
         >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
               variants={item}
               whileHover={{ y: -6 }}
-              className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06] hover:border-accent/20 transition-all duration-300 relative"
             >
-              <FaQuoteLeft className="text-accent/20 text-3xl mb-4" />
-              <p className="text-white/60 leading-relaxed mb-6 text-sm">
-                "{testimonial.text}"
-              </p>
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.stars }).map((_, i) => (
-                  <FaStar key={i} className="text-accent text-sm" />
-                ))}
-              </div>
-              <div>
-                <p className="text-white font-bold text-sm">{testimonial.name}</p>
-                <p className="text-white/40 text-xs">{testimonial.role}</p>
-              </div>
+              <TestimonialCard testimonial={testimonial} />
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Mobile: Carousel */}
+        {isMobile && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="md:hidden"
+          >
+            <div className="overflow-hidden">
+              <motion.div
+                animate={{ x: `-${currentSlide * 100}%` }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="flex"
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-1">
+                    <TestimonialCard testimonial={testimonial} />
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Carousel controls */}
+            <div className="flex items-center justify-center gap-6 mt-8">
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
+                aria-label="Testimonio anterior"
+              >
+                <FaChevronLeft className="text-sm" />
+              </button>
+
+              <div className="flex gap-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      currentSlide === index
+                        ? 'bg-accent w-6'
+                        : 'bg-white/20 hover:bg-white/40'
+                    }`}
+                    aria-label={`Testimonio ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentSlide((prev) => (prev + 1) % testimonials.length)}
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
+                aria-label="Testimonio siguiente"
+              >
+                <FaChevronRight className="text-sm" />
+              </button>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   )

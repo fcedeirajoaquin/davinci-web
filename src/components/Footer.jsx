@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useState } from 'react'
 import {
   FaInstagram,
   FaWhatsapp,
@@ -10,6 +11,12 @@ import {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  const { scrollY } = useScroll()
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setShowBackToTop(latest > 400)
+  })
 
   const quickLinks = [
     { name: 'Inicio', href: '#hero' },
@@ -53,7 +60,7 @@ const Footer = () => {
               <div className="space-y-2.5 text-white/40 text-sm">
                 <div className="flex items-center gap-3">
                   <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
-                  <span>Amenabar 1929, Modena</span>
+                  <span>Amenábar 1929, Belgrano</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhone className="text-accent/60 flex-shrink-0" />
@@ -139,9 +146,10 @@ const Footer = () => {
       {/* Back to Top */}
       <motion.a
         href="#hero"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={showBackToTop ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, pointerEvents: 'none' }}
         whileHover={{ y: -3 }}
+        transition={{ duration: 0.3 }}
         className="fixed bottom-8 right-8 w-11 h-11 bg-accent/90 backdrop-blur-sm rounded-xl flex items-center justify-center text-deep shadow-lg shadow-accent/20 hover:bg-accent transition-all duration-300 z-50"
         aria-label="Volver arriba"
       >
