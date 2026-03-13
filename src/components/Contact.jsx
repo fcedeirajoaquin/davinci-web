@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
 import TextReveal from './TextReveal'
+import { useContent } from '../context/ContentContext'
 import {
   FaPhone,
   FaMapMarkerAlt,
@@ -11,6 +12,8 @@ import {
 const Contact = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const { content } = useContent()
+  const c = content.contact
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,7 +27,7 @@ const Contact = () => {
     if (formData.email) message += `\nEmail: ${formData.email}`
     if (formData.phone) message += `\nTeléfono: ${formData.phone}`
     message += `\n\n${formData.message}`
-    const whatsappUrl = `https://wa.me/5491161549740?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/${c.whatsappNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
 
@@ -33,10 +36,10 @@ const Contact = () => {
   }
 
   const contactInfo = [
-    { icon: <FaPhone className="text-xl" />, title: 'Teléfono', info: '011 6154-9740', link: 'tel:+5491161549740' },
-    { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: 'Chatea con nosotros', link: 'https://wa.me/5491161549740' },
-    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: 'Amenábar 1929, Belgrano', link: 'https://maps.google.com/?q=Amenabar+1929+Buenos+Aires' },
-    { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: '@davinci_vidrieríayherrería', link: 'https://www.instagram.com/davinci_vidrieríayherrería/' },
+    { icon: <FaPhone className="text-xl" />, title: 'Teléfono', info: c.phone, link: `tel:+${c.whatsappNumber}` },
+    { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: c.whatsappLabel, link: `https://wa.me/${c.whatsappNumber}` },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: c.address, link: `https://maps.google.com/?q=${encodeURIComponent(c.address)}` },
+    { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: c.instagram, link: c.instagramUrl },
   ]
 
   const container = {
@@ -67,10 +70,10 @@ const Contact = () => {
           className="text-center mb-16"
         >
           <span className="inline-block text-accent/60 text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-            Hablemos
+            {c.sectionLabel}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6">
-            <TextReveal as="span" className="text-white">Contactanos</TextReveal>
+            <TextReveal as="span" className="text-white">{c.title}</TextReveal>
           </h2>
           <motion.div
             initial={{ width: 0 }}
@@ -79,7 +82,7 @@ const Contact = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            Tenes un proyecto en mente? Escribinos y te respondemos a la brevedad
+            {c.subtitle}
           </p>
         </motion.div>
 
@@ -95,7 +98,7 @@ const Contact = () => {
               className="bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 border border-white/[0.06]"
             >
               <h3 className="text-2xl font-display text-white mb-8">
-                Solicitar Presupuesto
+                {c.formTitle}
               </h3>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
@@ -211,7 +214,7 @@ const Contact = () => {
             >
               <iframe
                 title="Ubicación Da Vinci Aberturas"
-                src="https://www.google.com/maps?q=Vidriería+%26+Herrería+Da+Vinci+Amenábar+1929+Belgrano+Buenos+Aires&z=16&output=embed"
+                src={`https://www.google.com/maps?q=${c.mapQuery}&z=16&output=embed`}
                 width="100%"
                 height="240"
                 style={{ border: 0 }}

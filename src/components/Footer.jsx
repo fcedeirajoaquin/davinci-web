@@ -1,11 +1,11 @@
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { useState } from 'react'
+import { useContent } from '../context/ContentContext'
 import {
   FaInstagram,
   FaWhatsapp,
   FaPhone,
   FaMapMarkerAlt,
-  FaHeart,
   FaChevronUp,
 } from 'react-icons/fa'
 
@@ -13,6 +13,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
   const [showBackToTop, setShowBackToTop] = useState(false)
   const { scrollY } = useScroll()
+  const { content } = useContent()
+  const c = content.footer
+  const contact = content.contact
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setShowBackToTop(latest > 400)
@@ -27,8 +30,8 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { icon: <FaInstagram className="text-xl" />, href: 'https://www.instagram.com/davinci_vidrieríayherrería/', label: 'Instagram' },
-    { icon: <FaWhatsapp className="text-xl" />, href: 'https://wa.me/5491161549740', label: 'WhatsApp' },
+    { icon: <FaInstagram className="text-xl" />, href: contact.instagramUrl, label: 'Instagram' },
+    { icon: <FaWhatsapp className="text-xl" />, href: `https://wa.me/${contact.whatsappNumber}`, label: 'WhatsApp' },
   ]
 
   return (
@@ -49,23 +52,22 @@ const Footer = () => {
               <div className="flex items-center gap-3 mb-5">
                 <img src="/logo.png" alt="Da Vinci" className="h-10" />
                 <div>
-                  <span className="text-white font-bold text-lg tracking-tight block leading-tight">DA VINCI</span>
-                  <span className="text-accent/60 font-medium text-xs tracking-[0.15em] uppercase">Aberturas</span>
+                  <span className="text-white font-bold text-lg tracking-tight block leading-tight">{c.companyName}</span>
+                  <span className="text-accent/60 font-medium text-xs tracking-[0.15em] uppercase">{c.companySubtitle}</span>
                 </div>
               </div>
               <p className="text-white/60 mb-6 max-w-md leading-relaxed text-sm">
-                Creadores de espacios únicos. Especializados en vidriería y
-                herrería de aluminio con mas de 10 años de experiencia.
+                {c.description}
               </p>
               <div className="space-y-2.5 text-white/60 text-sm">
                 <div className="flex items-center gap-3">
                   <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
-                  <span>Amenábar 1929, Belgrano</span>
+                  <span>{c.address}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhone className="text-accent/60 flex-shrink-0" />
-                  <a href="tel:+5491161549740" className="hover:text-accent transition-colors">
-                    011 6154-9740
+                  <a href={`tel:+${contact.whatsappNumber}`} className="hover:text-accent transition-colors">
+                    {c.phone}
                   </a>
                 </div>
               </div>
@@ -128,7 +130,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-white/[0.06] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-sm text-center md:text-left">
-            {currentYear} Da Vinci Vidrieria y Herreria. Todos los derechos reservados.
+            {currentYear} {c.copyright}
           </p>
           <a
             href="https://ferced.com"

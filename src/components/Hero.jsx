@@ -3,8 +3,12 @@ import { FaChevronDown, FaCheckCircle } from 'react-icons/fa'
 import { useEffect } from 'react'
 import AnimatedCounter from './AnimatedCounter'
 import TextReveal from './TextReveal'
+import { useContent } from '../context/ContentContext'
 
 const Hero = () => {
+  const { content } = useContent()
+  const c = content.hero
+
   // Mouse parallax
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -92,18 +96,18 @@ const Hero = () => {
           >
             <motion.div variants={item}>
               <span className="inline-block bg-accent/10 text-accent px-5 py-2 rounded-full text-sm font-semibold border border-accent/20 backdrop-blur-sm">
-                Creadores de Espacios Unicos
+                {c.badge}
               </span>
             </motion.div>
 
             <motion.div variants={item}>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-normal text-white leading-[1.1]">
                 <TextReveal className="text-white" as="span">
-                  Aberturas de
+                  {c.titleLine1}
                 </TextReveal>
                 <span className="block mt-2">
                   <TextReveal className="text-accent" as="span" delay={0.3}>
-                    Alta Calidad
+                    {c.titleLine2}
                   </TextReveal>
                 </span>
               </h1>
@@ -113,16 +117,11 @@ const Hero = () => {
               variants={item}
               className="text-lg text-white/60 leading-relaxed max-w-lg text-center"
             >
-              Fabricación e instalación de ventanas, puertas y cerramientos en aluminio.
-              Más de 10 años transformando espacios con diseño y excelencia.
+              {c.subtitle}
             </motion.p>
 
             <motion.div variants={container} className="space-y-3">
-              {[
-                'Materiales de primera calidad',
-                'Instalación profesional garantizada',
-                'Diseños personalizados a medida',
-              ].map((feature, i) => (
+              {c.features.map((feature, i) => (
                 <motion.div
                   key={i}
                   variants={item}
@@ -144,7 +143,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.98 }}
                 className="bg-accent text-deep px-8 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 shadow-[0_0_30px_rgba(78,214,241,0.25)] text-center"
               >
-                Solicitar Presupuesto
+                {c.ctaPrimary}
               </motion.a>
               <motion.a
                 href="#services"
@@ -152,7 +151,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.98 }}
                 className="border border-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-center backdrop-blur-sm"
               >
-                Ver Servicios
+                {c.ctaSecondary}
               </motion.a>
             </motion.div>
 
@@ -161,11 +160,7 @@ const Hero = () => {
               variants={container}
               className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10 w-full"
             >
-              {[
-                { number: 10, suffix: '+', label: 'Años' },
-                { number: 500, suffix: '+', label: 'Proyectos' },
-                { number: 100, suffix: '%', label: 'Satisfacción' },
-              ].map((stat, i) => (
+              {c.stats.map((stat, i) => (
                 <motion.div key={i} variants={item} className="text-center">
                   <div className="text-3xl md:text-4xl font-display text-accent mb-1">
                     <AnimatedCounter target={stat.number} suffix={stat.suffix} duration={2000} />

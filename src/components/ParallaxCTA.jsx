@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { useContent } from '../context/ContentContext'
 
 const ParallaxCTA = () => {
   const ref = useRef(null)
@@ -7,6 +8,8 @@ const ParallaxCTA = () => {
     target: ref,
     offset: ['start end', 'end start'],
   })
+  const { content } = useContent()
+  const c = content.parallaxCTA
 
   const y = useTransform(scrollYProgress, [0, 1], ['-20%', '20%'])
 
@@ -18,7 +21,7 @@ const ParallaxCTA = () => {
         className="absolute inset-0 -top-[20%] -bottom-[20%]"
       >
         <img
-          src="/images/parallax-cta.webp"
+          src={c.imageUrl}
           alt=""
           className="w-full h-full object-cover"
         />
@@ -36,7 +39,7 @@ const ParallaxCTA = () => {
           viewport={{ once: true }}
           className="text-3xl md:text-5xl font-display text-white mb-6"
         >
-          Tu proximo proyecto empieza <span className="text-accent">aqui</span>
+          {c.titlePart1}<span className="text-accent">{c.titleAccent}</span>
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +48,7 @@ const ParallaxCTA = () => {
           viewport={{ once: true }}
           className="text-white/60 text-lg mb-8 max-w-xl mx-auto"
         >
-          Contanos tu idea y te ayudamos a hacerla realidad con las mejores aberturas del mercado
+          {c.subtitle}
         </motion.p>
         <motion.a
           href="#contact"
@@ -57,7 +60,7 @@ const ParallaxCTA = () => {
           whileTap={{ scale: 0.97 }}
           className="inline-block bg-accent text-deep px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 shadow-[0_0_40px_rgba(78,214,241,0.3)]"
         >
-          Solicitar Presupuesto Gratis
+          {c.cta}
         </motion.a>
       </div>
     </section>

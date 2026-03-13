@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ScrollProgress from './components/ScrollProgress'
@@ -13,8 +14,9 @@ const Testimonials = lazy(() => import('./components/Testimonials'))
 const FAQ = lazy(() => import('./components/FAQ'))
 const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
+const Admin = lazy(() => import('./components/Admin'))
 
-function App() {
+function LandingPage() {
   return (
     <div className="App relative">
       <a
@@ -41,6 +43,22 @@ function App() {
         <Footer />
       </Suspense>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route
+        path="/admin"
+        element={
+          <Suspense fallback={<div className="min-h-screen bg-gray-900 flex items-center justify-center text-white">Cargando...</div>}>
+            <Admin />
+          </Suspense>
+        }
+      />
+    </Routes>
   )
 }
 

@@ -1,12 +1,15 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { FaStar, FaQuoteLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import { useContent } from '../context/ContentContext'
 
 const Testimonials = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const { content } = useContent()
+  const c = content.testimonials
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -15,26 +18,7 @@ const Testimonials = () => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const testimonials = [
-    {
-      name: 'Maria Gonzalez',
-      role: 'Propietaria en Nordelta',
-      text: 'Excelente trabajo en todas las ventanas de mi casa. La diferencia en aislación térmica es increible. Muy profesionales y puntuales.',
-      stars: 5,
-    },
-    {
-      name: 'Carlos Ruiz',
-      role: 'Arquitecto',
-      text: 'Trabajo con Da Vinci en todos mis proyectos. La calidad del aluminio y los acabados son superiores. Siempre cumplen con los plazos.',
-      stars: 5,
-    },
-    {
-      name: 'Laura Fernandez',
-      role: 'Propietaria en Palermo',
-      text: 'Cerraron mi balcón y quedo espectacular. El equipo fue muy prolijo y el resultado supero mis expectativas. 100% recomendables.',
-      stars: 5,
-    },
-  ]
+  const testimonials = c.items
 
   const container = {
     hidden: { opacity: 0 },
@@ -80,10 +64,10 @@ const Testimonials = () => {
           className="text-center mb-16"
         >
           <span className="inline-block text-accent/60 text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-            Testimonios
+            {c.sectionLabel}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-white mb-6">
-            Lo Que Dicen <span className="text-accent">Nuestros Clientes</span>
+            {c.titlePart1}<span className="text-accent">{c.titleAccent}</span>
           </h2>
           <motion.div
             initial={{ width: 0 }}
@@ -92,7 +76,7 @@ const Testimonials = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-white/50 text-lg max-w-2xl mx-auto">
-            La satisfacción de nuestros clientes es nuestra mejor carta de presentación
+            {c.subtitle}
           </p>
         </motion.div>
 
