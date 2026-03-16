@@ -1,7 +1,8 @@
 import { motion, useInView, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion'
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import { FaExpand, FaInstagram, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import TextReveal from './TextReveal'
+import { useContent } from '../context/ContentContext'
 
 const TiltCard = ({ children, className }) => {
   const ref = useRef(null)
@@ -42,15 +43,36 @@ const Gallery = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [lightboxIndex, setLightboxIndex] = useState(null)
+  const { content } = useContent()
+  const c = content.gallery
+
+  const galleryItems = useMemo(() => {
+    return (c.items || []).map((item, i) => ({
+      id: i + 1,
+      category: item.category,
+      title: item.title,
+      image: item.imageUrl,
+    }))
+  }, [c.items])
+
+  const categories = useMemo(() => {
+    return [
+      { id: 'all', name: 'Todos' },
+      ...(c.categories || []),
+    ]
+  }, [c.categories])
+
+  const filteredItems = useMemo(() => {
+    return selectedCategory === 'all'
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === selectedCategory)
+  }, [selectedCategory, galleryItems])
 
   const navigateLightbox = useCallback((direction) => {
     if (lightboxIndex === null) return
-    const items = selectedCategory === 'all'
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === selectedCategory)
-    const newIndex = (lightboxIndex + direction + items.length) % items.length
+    const newIndex = (lightboxIndex + direction + filteredItems.length) % filteredItems.length
     setLightboxIndex(newIndex)
-  }, [lightboxIndex, selectedCategory])
+  }, [lightboxIndex, filteredItems])
 
   useEffect(() => {
     if (lightboxIndex === null) return
@@ -66,29 +88,6 @@ const Gallery = () => {
       document.body.style.overflow = ''
     }
   }, [lightboxIndex, navigateLightbox])
-
-  const categories = [
-    { id: 'all', name: 'Todos' },
-    { id: 'windows', name: 'Ventanas' },
-    { id: 'doors', name: 'Puertas' },
-    { id: 'closures', name: 'Cerramientos' },
-  ]
-
-  const galleryItems = [
-    { id: 1, category: 'windows', title: 'Ventana Corrediza DVH', image: '/images/ventana-corrediza.webp' },
-    { id: 2, category: 'doors', title: 'Puerta Principal Vidriada', image: '/images/puerta-vidriada.webp' },
-    { id: 3, category: 'closures', title: 'Cerramiento de Balcón', image: '/images/cerramiento-balcon.webp' },
-    { id: 4, category: 'windows', title: 'Ventana Oscilobatiente', image: '/images/ventana-oscilobatiente.webp' },
-    { id: 5, category: 'doors', title: 'Porton Automatico', image: '/images/porton-automatico.webp' },
-    { id: 6, category: 'closures', title: 'Cerramiento de Terraza', image: '/images/cerramiento-terraza.webp' },
-    { id: 7, category: 'windows', title: 'Ventana de Paño Fijo', image: '/images/ventana-pano-fijo.webp' },
-    { id: 8, category: 'doors', title: 'Puerta Corrediza Pesada', image: '/images/puerta-corrediza.webp' },
-  ]
-
-  const filteredItems =
-    selectedCategory === 'all'
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === selectedCategory)
 
   const container = {
     hidden: { opacity: 0 },
@@ -111,11 +110,11 @@ const Gallery = () => {
           className="text-center mb-12"
         >
           <span className="inline-block text-primary/60 text-sm font-semibold uppercase tracking-[0.2em] mb-4">
-            Portfolio
+            {c.sectionLabel}
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-deep mb-6">
-            <TextReveal as="span" className="text-deep">Nuestros </TextReveal>
-            <TextReveal as="span" className="text-primary" delay={0.2}>Trabajos</TextReveal>
+            <TextReveal as="span" className="text-deep">{c.titlePart1}</TextReveal>
+            <TextReveal as="span" className="text-primary" delay={0.2}>{c.titlePart2}</TextReveal>
           </h2>
           <motion.div
             initial={{ width: 0 }}
@@ -124,8 +123,7 @@ const Gallery = () => {
             className="h-0.5 bg-accent mx-auto mb-6"
           />
           <p className="text-text/60 text-lg max-w-2xl mx-auto">
-            Explora nuestra galería de proyectos realizados. Cada trabajo refleja
-            nuestro compromiso con la excelencia.
+            {c.subtitle}
           </p>
         </motion.div>
 
@@ -199,10 +197,10 @@ const Gallery = () => {
           className="text-center mt-14"
         >
           <p className="text-text/50 mb-5">
-            Te gustaria ver mas de nuestros trabajos?
+            {c.instagramText}
           </p>
           <motion.a
-            href="https://www.instagram.com/davinci_vidrieríayherrería/"
+            href={c.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.03 }}
@@ -210,7 +208,7 @@ const Gallery = () => {
             className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-xl font-bold hover:opacity-90 transition-all duration-300 shadow-lg shadow-purple-600/20"
           >
             <FaInstagram className="text-xl" />
-            Siguenos en Instagram
+            {c.instagramCta}
           </motion.a>
         </motion.div>
       </div>

@@ -9,6 +9,7 @@ const SECTIONS = [
   { key: 'hero', label: 'Hero' },
   { key: 'about', label: 'Nosotros' },
   { key: 'services', label: 'Servicios' },
+  { key: 'gallery', label: 'Galería' },
   { key: 'parallaxCTA', label: 'Parallax CTA' },
   { key: 'testimonials', label: 'Testimonios' },
   { key: 'faq', label: 'FAQ' },

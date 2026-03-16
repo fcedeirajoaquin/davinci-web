@@ -87,6 +87,31 @@ const defaultContent = {
     ],
   },
 
+  gallery: {
+    sectionLabel: 'Portfolio',
+    titlePart1: 'Nuestros ',
+    titlePart2: 'Trabajos',
+    subtitle: 'Explora nuestra galería de proyectos realizados. Cada trabajo refleja nuestro compromiso con la excelencia.',
+    instagramText: 'Te gustaria ver mas de nuestros trabajos?',
+    instagramCta: 'Siguenos en Instagram',
+    instagramUrl: 'https://www.instagram.com/davinci_vidrieríayherrería/',
+    categories: [
+      { id: 'windows', name: 'Ventanas' },
+      { id: 'doors', name: 'Puertas' },
+      { id: 'closures', name: 'Cerramientos' },
+    ],
+    items: [
+      { category: 'windows', title: 'Ventana Corrediza DVH', imageUrl: '/images/ventana-corrediza.webp' },
+      { category: 'doors', title: 'Puerta Principal Vidriada', imageUrl: '/images/puerta-vidriada.webp' },
+      { category: 'closures', title: 'Cerramiento de Balcón', imageUrl: '/images/cerramiento-balcon.webp' },
+      { category: 'windows', title: 'Ventana Oscilobatiente', imageUrl: '/images/ventana-oscilobatiente.webp' },
+      { category: 'doors', title: 'Porton Automatico', imageUrl: '/images/porton-automatico.webp' },
+      { category: 'closures', title: 'Cerramiento de Terraza', imageUrl: '/images/cerramiento-terraza.webp' },
+      { category: 'windows', title: 'Ventana de Paño Fijo', imageUrl: '/images/ventana-pano-fijo.webp' },
+      { category: 'doors', title: 'Puerta Corrediza Pesada', imageUrl: '/images/puerta-corrediza.webp' },
+    ],
+  },
+
   parallaxCTA: {
     titlePart1: 'Tu proximo proyecto empieza ',
     titleAccent: 'aqui',
