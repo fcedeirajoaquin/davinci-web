@@ -62,7 +62,11 @@ const Footer = () => {
               <div className="space-y-2.5 text-white/60 text-sm">
                 <div className="flex items-center gap-3">
                   <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
-                  <span>{c.address}</span>
+                  <span>Local: {c.address}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FaMapMarkerAlt className="text-accent/60 flex-shrink-0" />
+                  <span>Fábrica: {c.factoryAddress}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <FaPhone className="text-accent/60 flex-shrink-0" />

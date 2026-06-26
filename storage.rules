@@ -1,0 +1,13 @@
+rules_version = '2';
+
+// Reglas de Cloud Storage para el CMS.
+// Las imágenes del sitio son públicas (lectura libre), pero solo un usuario
+// autenticado (el login de admin) puede subir o sobrescribir archivos.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /cms/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

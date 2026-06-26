@@ -38,7 +38,8 @@ const Contact = () => {
   const contactInfo = [
     { icon: <FaPhone className="text-xl" />, title: 'Teléfono', info: c.phone, link: `tel:+${c.whatsappNumber}` },
     { icon: <FaWhatsapp className="text-xl" />, title: 'WhatsApp', info: c.whatsappLabel, link: `https://wa.me/${c.whatsappNumber}` },
-    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Ubicación', info: c.address, link: `https://maps.google.com/?q=${encodeURIComponent(c.address)}` },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Local', info: c.address, link: `https://maps.google.com/?q=${encodeURIComponent(c.address)}` },
+    { icon: <FaMapMarkerAlt className="text-xl" />, title: 'Fábrica', info: c.factoryAddress, link: `https://maps.google.com/?q=${encodeURIComponent(c.factoryAddress)}` },
     { icon: <FaInstagram className="text-xl" />, title: 'Instagram', info: c.instagram, link: c.instagramUrl },
   ]
 
